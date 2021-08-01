@@ -86,7 +86,15 @@ app.get('/search', (요청, 응답)=>{
 })
 
 app.get('/test', function(요청, 응답){
-	응답.sendFile(__dirname + '/flyer/index.html')
+	응답.sendFile(__dirname + '/flyer-threejs/index.html')
+});
+
+app.get('/testjs', function(요청, 응답){
+	응답.sendFile(__dirname + '/flyer-threejs/index.js')
+});
+
+app.get('/testcss', function(요청, 응답){
+	응답.sendFile(__dirname + '/flyer-threejs/index.css')
 });
 
 app.delete('/delete', function(요청, 응답){
@@ -263,3 +271,4 @@ app.get('/targets/:targetName', function(요청, 응답){
 app.get('/targetvideo/:targetvideoName', function(요청, 응답){
 	응답.sendFile(__dirname + '/targetvideo/' + 요청.params.targetvideoName)
 })
+
