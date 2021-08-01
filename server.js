@@ -103,6 +103,9 @@ app.get('/testjs', function(요청, 응답){
 // 	})
 // });
 
+app.get('/testloadscreen', function(요청, 응답){
+	응답.sendFile(__dirname + '/flyer-threejs/loadscreen.js')
+})
 
 app.get('/testcss', function(요청, 응답){
 	응답.sendFile(__dirname + '/flyer-threejs/index.css')
@@ -274,4 +277,6 @@ app.get('/targets/:targetName', function(요청, 응답){
 app.get('/targetvideo/:targetvideoName', function(요청, 응답){
 	응답.sendFile(__dirname + '/targetvideo/' + 요청.params.targetvideoName)
 })
+
+
 

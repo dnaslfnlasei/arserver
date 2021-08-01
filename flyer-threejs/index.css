@@ -9,3 +9,24 @@ body {
   margin: -1px 0px 0px 0px !important;
   padding: 0;
 }
+
+#requestingCameraPermissions {
+  color: black;
+  background-color: white;
+}
+#requestingCameraIcon {
+  /* This changes the image from white to black */
+  filter: invert(0);
+}
+
+.prompt-box-8w {
+  background-color: white;
+  color: #00FF00;
+}
+.prompt-button-8w {
+  background-color: #0000FF;
+}
+
+.button-primary-8w {
+  background-color: #7611B7;
+}
