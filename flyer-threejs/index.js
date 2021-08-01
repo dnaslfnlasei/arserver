@@ -4,7 +4,7 @@
 
 const imageTargetPipelineModule = () => {
   const modelFile = '/targetvideo/jellyfish-model.glb'
-  const videoFile = '/targetvideo/jellyfish-video.mp4'
+  const videoFile = `/targetvideo/1.mp4`
 
   const loader = new THREE.GLTFLoader()  // This comes from GLTFLoader.js.
 

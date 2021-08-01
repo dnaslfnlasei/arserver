@@ -90,8 +90,19 @@ app.get('/test', function(요청, 응답){
 });
 
 app.get('/testjs', function(요청, 응답){
-	응답.sendFile(__dirname + '/flyer-threejs/index.js')
+	db.collection('user').find().toArray(function(에러, 결과){
+	응답.render('/flyer-threejs/index.js',{user : 결과, 사용자 : 요청.user});
+	})
 });
+
+// app.get('/testjs',function(요청, 응답){
+// 	// console.log(요청.user);
+// 		db.collection('user').find().toArray(function(에러, 결과){
+// 		// console.log(결과)
+// 		응답.render('/flyer-threejs/index.js',{user : 결과, 사용자 : 요청.user})
+// 	})
+// });
+
 
 app.get('/testcss', function(요청, 응답){
 	응답.sendFile(__dirname + '/flyer-threejs/index.css')
@@ -132,14 +143,6 @@ app.get('/detail/:id', function(요청, 응답){
 	})
 
 })
-
-// app.get('/tdetail/:id', function(요청, 응답){
-// 	db.collection('user').findOne({_id : parseInt(요청.params.id)}, function(에러, 결과){
-// 		console.log(결과);
-// 		응답.render('tdetail.ejs',{user : 결과, 사용자 : 요청.user});
-// 	})
-
-// })
 
 app.get('/tdetail/:id', function(요청, 응답){
 	db.collection('user').findOne({_id : parseInt(요청.params.id)}, function(에러, 결과){
