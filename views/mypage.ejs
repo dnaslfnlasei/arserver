@@ -1,0 +1,116 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <title>Document</title>
+</head>
+<body>
+  
+<p>
+<%= 사용자.id %>	마이페이지 (로그인 유저만 접속할수 있는페이지)
+	</p>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html> -->
+
+
+
+<!doctype html>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>AR사진관 서버</title>
+  </head>
+  <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">AR 사진관</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/list">회원관리</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/add_user">업로드</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/test">테스트페이지</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+	  
+	  <h4>서버에서 가져온 회원 정보</h4>
+<div class="container input-group mb-2">
+  <input class="form-control" id="search-input">
+  <button class="input-group-append btn btn-danger" id="search">검색</button>
+</div>
+
+
+<ul class = "list-group">
+	<% for (var i = 0; i < user.length; i ++) { %>
+		<li class = "list-group-item">
+			
+			<h4>
+			<a href="/detail/<%= user[i]._id%>"> 회원 이름: <%= user[i].이름 %>(<%= user[i]._id %>) </a>
+			</h4>
+			<p>영상 길이: <%= user[i].영상길이 %>초</p>
+			<p>영상 포맷:<%= user[i].영상포맷 %></p>
+    <button class="edit" onClick = "location.href='/edit/<%= user[i]._id%>'">수정</button>
+    <button class="delete" data-id="<%= user[i]._id %>">삭제</button>
+		</li>
+	<% } %>
+</ul>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script>
+	  $('#search').click(function(){
+    var 입력한값 = $('#search-input').val();
+    window.location.replace('/search?value=' + 입력한값)
+  });
+	
+		  // class 명이 delete인 요소를 클릭하면 내부코드를 실행해주세요
+	  $('.delete').click(function(e){
+		  var 글번호 = e.target.dataset.id;
+		  var 지금누른거 = $(this);
+		$.ajax({
+		  method : 'DELETE',
+		  url : '/delete',
+		  data : {_id : e.target.dataset.id}
+	  }).done(function(결과){
+		  //페이즈를 강제로 새로고침해주세요
+		// 삭제버튼을 누른 <li>요소를 제거해주세요
+			console.log('성공했습니다.');
+			지금누른거.parent('li').fadeOut();
+			
+	  	}).fail(function(xhr, textStatus, errorThrown){
+			console.log(xhr, textStatus, errorThrown);
+		});
+	  })
+</script>
+	  
+	  
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
